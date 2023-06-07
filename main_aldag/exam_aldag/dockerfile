@@ -1,0 +1,18 @@
+FROM kusharami/qt5-alpine-dev:latest
+ENV TZ=Europe/Moscow
+LABEL maintainer="created by dead inside Aldag Algul"
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get update
+RUN apt-get -y install qt5-default
+RUN apt-get -y install qtbase5-dev
+RUN apt-get install qt5-qmake
+RUN apt-get -y install build-essential
+
+WORKDIR /hallServer
+COPY Aldag_221-351 /hallServer
+
+RUN qmake EchoServer.pro
+RUN make
+
+ENTRYPOINT ["./EchoServer"]

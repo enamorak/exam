@@ -1,0 +1,5 @@
+собрать образ:
+docker build -t echoserver .
+
+запустить:
+docker run -it echoserver
